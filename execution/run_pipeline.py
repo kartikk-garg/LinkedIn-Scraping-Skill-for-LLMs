@@ -70,6 +70,9 @@ def main():
     run_step("6. Store Generated Posts (DB)",  "store_generated_posts.py")
     run_step("7. Sync Generated → Sheets",    "sync_generated_sheets.py")
 
+    # Phase 4: Image Generation
+    run_step("8. Generate Infographic Images", "generate_image.py")
+
     elapsed = (datetime.now() - start).seconds
     print(f"\n[run_pipeline] ✓ Pipeline completed in {elapsed}s.")
 

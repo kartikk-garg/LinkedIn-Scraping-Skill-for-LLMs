@@ -101,9 +101,23 @@ python execution/sync_generated_sheets.py
 
 ---
 
-### 8. Run Full Pipeline
+### 8. Generate Infographic Images (Nano Banana)
+**Script:** `execution/generate_image.py`  
+**Directive:** `directives/generate_image.md`  
+**What it does:** Generates infographic images from prompts using Gemini Nano Banana image generation model.  
+**Input:** `.tmp/generated_posts.json` (reads `infographic_prompt`) or `--prompt` for single image  
+**Output:** `generated_images/<timestamp>_post_<n>.png`
+
+```bash
+python execution/generate_image.py
+python execution/generate_image.py --prompt "A clean data engineering infographic..."
+```
+
+---
+
+### 9. Run Full Pipeline
 **Script:** `execution/run_pipeline.py`  
-**What it does:** Runs all 7 steps above in sequence.
+**What it does:** Runs all 8 steps above in sequence.
 
 ```bash
 python execution/run_pipeline.py
@@ -116,7 +130,7 @@ python execution/run_pipeline.py --max-posts 10 --num-posts 3 --model gemini-2.5
 | Variable                      | Description                                        |
 |-------------------------------|----------------------------------------------------|
 | `APIFY_API_TOKEN`             | Apify API key for scraper                          |
-| `GEMINI_API_KEY`              | Google AI Studio key for content generation        |
+| `GEMINI_API_KEY`              | Google AI Studio key for content + image generation |
 | `GOOGLE_DOC_ID`               | Google Doc ID for Notebook LM                      |
 | `GOOGLE_SERVICE_ACCOUNT_FILE` | Path to Service Account JSON                       |
 | `SCRAPED_SHEET_ID`            | Google Sheet ID for scraped posts (per-user tabs)  |
@@ -137,7 +151,8 @@ Apify ──► .tmp/scraped_posts.json
               │          └──► generate_content.py ──► .tmp/generated_posts.json
               │                      │
               │                      ├──► store_generated_posts.py ──► posts.db
-              │                      └──► sync_generated_sheets.py ──► Google Sheet (per-date tabs)
+              │                      ├──► sync_generated_sheets.py ──► Google Sheet (per-date tabs)
+              │                      └──► generate_image.py        ──► generated_images/*.png
 ```
 
 ## Using with OpenClaw
