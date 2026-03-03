@@ -13,6 +13,8 @@ modular execution script in sequence:
   5. generate_content.py       → .tmp/generated_posts.json + generated_posts/
   6. store_generated_posts.py  → posts.db generated_posts table
   7. sync_generated_sheets.py  → per-date tabs in Generated Sheet
+  8. generate_image.py         → generated_images/*.png
+  9. upload_drive.py           → Google Drive (date subfolders)
 
 Usage:
     python execution/run_pipeline.py
@@ -72,6 +74,9 @@ def main():
 
     # Phase 4: Image Generation
     run_step("8. Generate Infographic Images", "generate_image.py")
+
+    # Phase 5: Cloud Upload
+    run_step("9. Upload Images to Drive",      "upload_drive.py")
 
     elapsed = (datetime.now() - start).seconds
     print(f"\n[run_pipeline] ✓ Pipeline completed in {elapsed}s.")

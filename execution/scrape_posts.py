@@ -39,9 +39,9 @@ OUTPUT_FILE = os.path.join(TMP_DIR, "scraped_posts.json")
 ACTOR_ID = "supreme_coder/linkedin-post"
 
 DEFAULT_URLS = [
-    "https://www.linkedin.com/in/zachwilson",
-    "https://www.linkedin.com/in/seattledataguy",
-    "https://www.linkedin.com/in/andreas-kretz",
+    "https://www.linkedin.com/in/riyakhandelwal",
+    "https://www.linkedin.com/in/iam-nishantkumar",
+    "https://www.linkedin.com/in/iam-nishantkumar",
 ]
 
 # ─── Main ─────────────────────────────────────────────────────────────────────

@@ -115,9 +115,22 @@ python execution/generate_image.py --prompt "A clean data engineering infographi
 
 ---
 
-### 9. Run Full Pipeline
+### 9. Upload Images to Google Drive
+**Script:** `execution/upload_drive.py`  
+**Directive:** `directives/upload_drive.md`  
+**What it does:** Uploads all images from `generated_images/` to a Google Drive folder, organized in date-based subfolders.  
+**Input:** `generated_images/*.png` → **Output:** `.tmp/drive_uploads.json`
+
+```bash
+python execution/upload_drive.py
+python execution/upload_drive.py --folder-id 1ABC...xyz
+```
+
+---
+
+### 10. Run Full Pipeline
 **Script:** `execution/run_pipeline.py`  
-**What it does:** Runs all 8 steps above in sequence.
+**What it does:** Runs all 9 steps above in sequence.
 
 ```bash
 python execution/run_pipeline.py
@@ -135,6 +148,7 @@ python execution/run_pipeline.py --max-posts 10 --num-posts 3 --model gemini-2.5
 | `GOOGLE_SERVICE_ACCOUNT_FILE` | Path to Service Account JSON                       |
 | `SCRAPED_SHEET_ID`            | Google Sheet ID for scraped posts (per-user tabs)  |
 | `GENERATED_SHEET_ID`          | Google Sheet ID for generated posts (per-date tabs)|
+| `DRIVE_FOLDER_ID`             | Google Drive folder ID for infographic uploads     |
 
 ## Data Flow
 ```
@@ -152,7 +166,8 @@ Apify ──► .tmp/scraped_posts.json
               │                      │
               │                      ├──► store_generated_posts.py ──► posts.db
               │                      ├──► sync_generated_sheets.py ──► Google Sheet (per-date tabs)
-              │                      └──► generate_image.py        ──► generated_images/*.png
+              │                      ├──► generate_image.py        ──► generated_images/*.png
+              │                      └──► upload_drive.py          ──► Google Drive (date folders)
 ```
 
 ## Using with OpenClaw
